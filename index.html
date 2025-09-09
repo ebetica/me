@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeming Lin</title>
+    <link rel="icon" type="image/jpeg" href="me.jpg">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 30px;
+        }
+        
+        .name {
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .profile-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: #b8b8b8;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        
+        .social-links a:hover {
+            color: #6ab7ff;
+        }
+        
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #999;
+        }
+        
+        h1, h2, h3, h4, h5, h6 { color: #ffffff; }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #b8b8b8;
+            margin: 30px 0;
+        }
+        
+        code {
+            background-color: #2d2d2d;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        
+        pre {
+            background-color: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        blockquote {
+            border-left: 4px solid #666;
+            margin-left: 0;
+            padding-left: 20px;
+            color: #999;
+        }
+        
+        a { color: #6ab7ff; }
+        a:hover { color: #8cc8ff; }
+        
+        #error {
+            color: #ff6b6b;
+            background-color: #2d1b1b;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="name">
+            <img src="me.jpg" alt="Zeming Lin" class="profile-photo">
+            <span>Zeming Lin</span>
+        </div>
+        <div class="social-links">
+            <a href="https://x.com/ebetica" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/zeming-lin-63145a23/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://scholar.google.com/citations?user=ZDjmMuwAAAAJ&hl" title="Google Scholar"><i class="fa-brands fa-google-scholar"></i></a>
+        </div>
+    </header>
+    
+    <div id="content"></div>
+    <div id="error" style="display: none;"></div>
+    
+    <footer>
+        email: zeming at nyu edu
+    </footer>
+
+    <script>
+        async function loadMarkdown() {
+            const contentDiv = document.getElementById('content');
+            const errorDiv = document.getElementById('error');
+            
+            try {
+                const response = await fetch('README.md');
+                if (!response.ok) {
+                    throw new Error(`Failed to load markdown file: ${response.status}`);
+                }
+                
+                const markdown = await response.text();
+                contentDiv.innerHTML = marked.parse(markdown);
+            } catch (error) {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = `Error: ${error.message}.`;
+            }
+        }
+        
+        loadMarkdown();
+    </script>
+</body>
+</html>
